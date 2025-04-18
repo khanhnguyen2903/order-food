@@ -133,3 +133,17 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Gửi ping lên server định kỳ để tránh bị tắt
+
+import requests
+import time
+
+url = "https://order-food-jd84.onrender.com/"
+while True:
+    try:
+        requests.get(url)
+        print("Ping sent to the server!")
+    except Exception as e:
+        print(f"Error: {e}")
+    time.sleep(300)  # Ping every 5 minutes
