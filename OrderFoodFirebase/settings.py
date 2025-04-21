@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'menu',
     'orders',
     'users',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'OrderFoodFirebase.urls'
@@ -127,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
@@ -134,16 +137,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Gửi ping lên server định kỳ để tránh bị tắt
+# # Gửi ping lên server định kỳ để tránh bị tắt
 
-import requests
-import time
+# import requests
+# import time
 
-url = "https://order-food-jd84.onrender.com/"
-while True:
-    try:
-        requests.get(url)
-        print("Ping sent to the server!")
-    except Exception as e:
-        print(f"Error: {e}")
-    time.sleep(300)  # Ping every 5 minutes
+# url = "https://order-food-jd84.onrender.com/"
+# while True:
+#     try:
+#         requests.get(url)
+#         print("Ping sent to the server!")
+#     except Exception as e:
+#         print(f"Error: {e}")
+#     time.sleep(300)  # Ping every 5 minutes
