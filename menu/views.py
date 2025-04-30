@@ -8,13 +8,6 @@ from datetime import datetime  # Import datetime để tạo order_id
 def menu_list(request):
   # Get all products from firebase
   products = FirebaseService.get_all_products()
-  # Lấy dữ liệu giỏ hàng từ session
-  # cart = request.session.get('cart', [])
-
-  # # Tổng số lượng món trong giỏ hàng
-  # total_quantity = sum(item['quantity'] for item in cart.values())
-
-  # return render(request, 'menu/menu_list.html', {'products' : products, 'total_quantity': total_quantity})
   return render(request, 'menu/menu_list.html', {'products' : products})
 
 def add_to_cart(request):
@@ -77,6 +70,7 @@ def submit_order(request):
     cart = request.session.get("cart", [])  # Lấy giỏ hàng từ session
     total_price = sum(item["quantity"] * item["price"] for item in cart)
     table_number = request.POST.get('table_number')
+    ordinal_number = request.POST.get('ordinal_number')
 
     if not cart:
       return JsonResponse({"success": False, "message": "Giỏ hàng trống!"})
@@ -91,6 +85,7 @@ def submit_order(request):
         "items": cart,
         'table_number': table_number,
         "total_price": total_price,
+        "ordinal_number": ordinal_number,
         "status": "preparing"
     })
 
@@ -99,6 +94,7 @@ def submit_order(request):
 
     # Thêm thông báo thành công
     messages.success(request, f"Menu của bạn đã được tiếp nhận! Mã đơn hàng: {order_id}")
+    messages.success(request, f"Vui lòng đợi trong ít phút, nhân viên sẽ phục vụ bạn sớm nhất có thể!")
 
     return redirect("view_cart")  
 

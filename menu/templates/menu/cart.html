@@ -113,6 +113,18 @@
               placeholder="Nhập số bàn bạn ngồi"
             />
           </div>
+          <!-- Nhập số thứ tự -->
+          <div class="mb-3">
+            <label for="tableNumber" class="form-label">Số thứ tự:</label>
+            <input
+              type="number"
+              name="ordinal_number"
+              id="ordinal_number"
+              class="form-control w-50 mx-auto"
+              min="1"
+              placeholder="Nhập số thứ tự của bạn"
+            />
+          </div>
           <button type="submit" class="btn btn-success btn-lg" id="btnSendMenu">
             Gửi thực đơn
           </button>
@@ -128,11 +140,18 @@
     <script>
       const btnSendMenu = document.querySelector("#btnSendMenu");
       const numTable = document.querySelector("#numTable");
+      const ordinal_number = document.querySelector("#ordinal_number");
+
       btnSendMenu.addEventListener("click", (event) => {
         number_table = numTable.value.trim();
         if (!number_table) {
           event.preventDefault(); // Ngăn form gửi đi
           alert("Vui lòng nhập số bàn trước khi gửi thực đơn.");
+        }
+        num_odinal = ordinal_number.value.trim();
+        if (!num_odinal) {
+          event.preventDefault(); // Ngăn form gửi đi
+          alert("Vui lòng nhập số thứ tự trước khi gửi thực đơn.");
         }
       });
     </script>

@@ -56,7 +56,19 @@
           >)
         </a>
       </div>
-      <h2 class="text-center mb-4 pt-4">Menu món ăn</h2>
+      <!-- <h2 class="text-center mb-4 pt-4">Menu món ăn</h2> -->
+      <div class="d-flex justify-content-between align-items-center mb-4 pt-4">
+        <h2 class="m-0">Menu món ăn</h2>
+        <div class="d-flex">
+          <input
+            type="text"
+            id="searchInput"
+            class="form-control"
+            placeholder="Tìm kiếm món ăn..."
+            style="max-width: 250px"
+          />
+        </div>
+      </div>
       <div class="row">
         {% for key, product in products.items %}
         <div class="col-md-4 mb-4">
@@ -168,6 +180,14 @@
               alert("Có lỗi xảy ra, vui lòng thử lại.");
             },
           });
+        });
+      });
+
+      // Tìm kiếm món ăn
+      $("#searchInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".row .col-md-4").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
       });
     </script>
